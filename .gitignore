@@ -1,3 +1,7 @@
 .DS_Store
 node_modules/
 SWVL_venv/
+__pycache__/
+build/
+dist/
+main.spec

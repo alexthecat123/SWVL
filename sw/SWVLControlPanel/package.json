@@ -4,7 +4,8 @@
   "description": "The control panel for the SWVL AI-enabled camera gimbal.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "cd python && pyinstaller main.py --onefile --add-data='haarcascade_frontalface_default.xml:files' && cd .. && cp ./python/dist/main ./main && electron .",
+    "start_nopy": "electron ."
   },
   "author": "alexthecat123",
   "license": "ISC",

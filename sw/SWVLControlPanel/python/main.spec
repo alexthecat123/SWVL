@@ -3,9 +3,9 @@
 
 a = Analysis(
     ['main.py'],
-    pathex=['../../SWVL_venv/lib/python3.12/site-packages/'],
+    pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('haarcascade_frontalface_default.xml', 'files')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

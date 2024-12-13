@@ -7,6 +7,7 @@
 // Command GT: Get tilt angle. Returns 16-bit angle.
 // Command PS: Play Sandstorm.
 // Command SS: Stop playing Sandstorm.
+// Command DS: Disable steppers so that the gimbal won't just stay on when the application exits.
 
 // make homing commands block so that host knows when gimbal has homed
 
@@ -104,6 +105,15 @@ void getCommand(){
                 commandLetter = Serial.read();
                 if(commandLetter == 'S'){ // Stop Sandstorm
                     sandstorm(false);
+                }
+                else{
+                    flushSerial();
+                }
+                break;
+            case 'D': // Disable Steppers
+                commandLetter = Serial.read();
+                if(commandLetter == 'S'){ // Disable Steppers
+                    digitalWrite(enable, HIGH);
                 }
                 else{
                     flushSerial();

@@ -3,15 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="style.css">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self' http://127.0.0.1:5000">
         <title>SWVL Control Panel</title>
     </head>
     <body>
         <h1 class="center">SWVL Control Panel</h1>
+        <video height="400" id="webcam" autoplay></video>
+        <script src="renderer.js"></script>
+        <br>
         <div class="sideBySide">
             <h3>Enable Face Tracking</h3>
             <label class="switch">
-                <input type="checkbox">
+                <input id="trackingToggle" type="checkbox">
                 <span class="slider round"></span>
             </label>
         </div>
