@@ -1,0 +1,1 @@
+Gimbal Connected message will be green, and will switch to red and say Gimbal Not Connected when gimbal isn't connected.

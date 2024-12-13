@@ -1,0 +1,17 @@
+{
+  "name": "swvlcontrolpanel",
+  "version": "1.0.0",
+  "description": "The control panel for the SWVL AI-enabled camera gimbal.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "alexthecat123",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^33.2.1"
+  },
+  "dependencies": {
+    "tree-kill": "^1.2.2"
+  }
+}

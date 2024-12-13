@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <title>SWVL Control Panel</title>
+    </head>
+    <body>
+        <h1 class="center">SWVL Control Panel</h1>
+        <div class="sideBySide">
+            <h3>Enable Face Tracking</h3>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="sideBySide">
+            <h3>Gimbal Serial Port</h3>
+            <select id="serialPortDropdown">
+                <!-- Serial ports will be populated by JavaScript code -->
+            </select>
+            <p id="connectionStatus">Gimbal Connected!</p>
+        </div>
+    </body>
+</html>
