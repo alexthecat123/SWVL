@@ -3,11 +3,20 @@ const { spawn } = require('child_process');
 const path = require('path');
 const executablePath = path.resolve(__dirname, 'main');
 const child = spawn(executablePath);
+const { ipcMain } = require('electron');
+
+
+const { SerialPort } = require('serialport')
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
-        height: 900
+        height: 900,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'), // Specify the preload script
+            contextIsolation: true, // Keep context isolation enabled
+            nodeIntegration: false // Disable Node.js integration for security
+        }
     })
     win.setMaximizable(false)
     win.setResizable(false)
@@ -22,6 +31,27 @@ setTimeout(() => {
         })
     })
 }, 1000);
+
+ipcMain.handle('get-serials', async (event, arg1, arg2) => {
+    let validPorts = [];
+    await SerialPort.list().then((ports, err) => {
+        if(err) {
+          console.log(err.message);
+          return
+        }
+        //console.log('ports', ports);
+        for(let i = 0; i < ports.length; i++){
+          if(ports[i].manufacturer != undefined){
+              validPorts.push(ports[i]);
+          }
+        }
+        console.log('validPorts', validPorts);  
+        if (ports.length === 0) {
+          console.log('No ports discovered');
+        }
+    })
+    return validPorts; // This will be sent back to the renderer
+});
 
 app.on('window-all-closed', (event) => {
     event.preventDefault();

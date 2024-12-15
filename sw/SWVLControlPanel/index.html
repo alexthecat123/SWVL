@@ -9,7 +9,7 @@
     <body>
         <h1 class="center">SWVL Control Panel</h1>
         <video height="400" id="webcam" autoplay></video>
-        <script src="renderer.js"></script>
+        <script type="module" src="renderer.js"></script>
         <br>
         <div class="sideBySide">
             <h3>Enable Face Tracking</h3>
@@ -23,6 +23,7 @@
             <select id="serialPortDropdown">
                 <!-- Serial ports will be populated by JavaScript code -->
             </select>
+            <button class="button" id="connect">Connect</button>
             <p id="connectionStatus">Gimbal Connected!</p>
         </div>
     </body>

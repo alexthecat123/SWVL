@@ -2,12 +2,11 @@ Gimbal Connected message will be green, and will switch to red and say Gimbal No
 It's stupid, but the way the camera thing will have to work is to make a virtual camera with pyvirtualcam that can be forwarded to Electron. But this requires OBS on Mac/Win, and a special package on Linux, which the Electron app will need to auto-install for us in its final version.
 Python 2-way comms about connection status. I guess we shoudl just poll Python about whether the gimbal is connected?
 Camera and serial port are separate. Should camera autoconnect, but serial not autoconnect?
-Get comms working for other functions too.
 
-
-Send a stepper disable command to the gimbal upon UI exit, or upon tracking disable.
 Maybe have one screen where it asks you to connect to the gimbal, and then only proceed to the main control panel once you're connected.
 
 Should we add a serial disconnect that allows you to hook up to a different cam midway through using the current one?
 
 How should Python pick which camera to use? Should Electron tell it?
+
+Get serial connection picker working. And make the "connection successful" text do stuff depending on what we pick
