@@ -84,11 +84,29 @@ input:checked + .slider:before {
 
 select {
     /*appearance: none;*/
-  }
+}
+
+#connectionStatus {
+    color: #FF2042;
+}
 
 .button {
     border-radius: 10px;
     background-color: #23D18B;
+    border: none;
+    color: #282C34;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 8px;
+    cursor: pointer;
+}
+
+.button:disabled {
+    border-radius: 10px;
+    background-color: #757982;
     border: none;
     color: #282C34;
     padding: 5px 10px;

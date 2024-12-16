@@ -40,14 +40,23 @@ def tracking_loop(commands, transmit):
                 port = commands.get()
                 print("Gimbal is on port " + port)
                 try:
-                    print("Trying to connect to gimbal...")
+                    print("Trying to connect to device...")
                     gimbal = serial.Serial(port, 115200, timeout=1)
-                    transmit.put(1)
                     print("Success!")
-                    break
+                    time.sleep(2)
+                    gimbal.write(bytes('ID', 'utf8'))
+                    ID = int(gimbal.read(2))
+                    if(ID == 69):
+                        print("And device is actually a gimbal!")
+                        transmit.put(1)
+                        break
+                    else:
+                        print("But device is NOT actually a gimbal! Disconnecting...")
+                        gimbal.close()
+                        transmit.put(0)
                 except:
+                    print('Failed! Waiting for another device connection command...')
                     transmit.put(0)
-                    print('Failed! Waiting for another gimbal connection command...')
             else: # Any other command should return a 0 at this point; we can't do anything until we're connected!
                 while commands.qsize():
                     commands.get()

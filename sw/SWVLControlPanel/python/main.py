@@ -65,7 +65,7 @@ def serial_connect(): # Tries to connect to a gimbal on port "port". Returns 0 o
         print("Host program: Gimbal connection succeeded!")
         return "1"
     elif result == 0:
-        print("Host progtam: Gimbal connection failed!")
+        print("Host program: Gimbal connection failed or device wasn't actually a gimbal!")
         return "0"
     else:
         print("Host program: Something weird happened with trying to connect to the gimbal.")

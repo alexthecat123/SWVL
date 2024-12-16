@@ -74,29 +74,6 @@ app.on('window-all-closed', (event) => {
         if (process.platform !== 'darwin') app.quit()
     },1000);
 })
-/*
-app.on('before-quit', (event) => {
-    event.preventDefault();
-    fetch(`http://127.0.0.1:5000/stop-tracking`,
-        {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-        }
-    ).then(res => res.json()).then((data) => {
-        console.log(data);
-
-    })
-    setTimeout(function(){
-        child.kill();
-    },100);
-    setTimeout(function(){
-        app.quit();
-    },1000);
-    //app.quit()//if (process.platform !== 'darwin') app.quit()   
-});*/
 
 child.stdout.on('data', (data) => {
     console.log(data.toString("utf-8"));

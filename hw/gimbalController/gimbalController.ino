@@ -8,6 +8,7 @@
 // Command PS: Play Sandstorm.
 // Command SS: Stop playing Sandstorm.
 // Command DS: Disable steppers so that the gimbal won't just stay on when the application exits.
+// Command ID: Identify command so that control program can ensure that serial device is a gimbal. Returns 8-bit ID byte.
 
 // make homing commands block so that host knows when gimbal has homed
 
@@ -114,6 +115,17 @@ void getCommand(){
                 commandLetter = Serial.read();
                 if(commandLetter == 'S'){ // Disable Steppers
                     digitalWrite(enable, HIGH);
+                }
+                else{
+                    flushSerial();
+                }
+                break;
+            case 'I': // ID
+                commandLetter = Serial.read();
+                if(commandLetter == 'D'){ // ID
+                    delay(1);
+                    Serial.println(69);
+                    delay(1);
                 }
                 else{
                     flushSerial();
