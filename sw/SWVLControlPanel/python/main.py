@@ -71,6 +71,22 @@ def serial_connect(): # Tries to connect to a gimbal on port "port". Returns 0 o
         print("Host program: Something weird happened with trying to connect to the gimbal.")
         return "0"
     
+@app.route("/serial-disconnect")
+def serial_disconnect(): # Tries to disconnect from the gimbal. Returns 1 on success, 0 on failure
+    command_queue.put("disconnect")
+    while receive_queue.qsize() == 0:
+        pass
+    result = receive_queue.get()
+    if result == 1:
+        print("Host program: Gimbal disconnection succeeded!")
+        return "1"
+    elif result == 0:
+        print("Host progtam: Gimbal disconnection failed!")
+        return "0"
+    else:
+        print("Host program: Something weird happened with disconnecting the gimbal.")
+        return "0"
+    
 @app.route("/connection-status")
 def connection_status(): # Queries the serial connection status of the gimbal. Returns 0 if disconnected, 1 if connected
     command_queue.put("conn_status")
