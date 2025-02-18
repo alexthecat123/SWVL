@@ -1,0 +1,17 @@
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/0a0d7a87378422e3.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/0a2a14701d899d8f.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/0a8f2b8a86f1ec7c.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/0aad39f9f38e5d0a.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/00ae560f0da59645.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/0af8ccb8e89b0c06.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9a3923e1c462444d.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9a9767fcf6856b71.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9ab6d500e8021b68.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9ac640e071ead643.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9ac84899fe830e7a.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9af588744fe2fd9a.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9b0c40fe635a790b.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9b0f5271b6048bdf.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9b79c04961f35b86.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9b084ea20d33ff06.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/train/9bae7190a5f2dcee.jpg

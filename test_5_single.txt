@@ -1,0 +1,5 @@
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/val/0a1f6ed36f1bd8bf.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/val/0a9ae8f9bf2f8b5c.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/val/0bb621ebf775cb91.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/val/0be6b78bb96d4c49.jpg
+/Users/kuba/Documents/data/Raw/Face-Detection-Dataset/images/val/0be97b86c8baf73f.jpg
