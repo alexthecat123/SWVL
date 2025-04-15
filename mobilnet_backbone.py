@@ -46,3 +46,4 @@ class FaceDetector(nn.Module):
     def forward(self, x):
         features = self.backbone(x)
         out = self.regression_head(features)
+        return out
