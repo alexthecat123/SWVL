@@ -10,14 +10,13 @@ async function startWebcam() {
     }
 }
 
-let refreshRate = 1000;
+let refreshRate = 1000;// disable all control options and set them all to default/zero until we're connected
 let connected = false;
 let select = document.getElementById("serialPortDropdown");
 let statusText = document.getElementById("connectionStatus");
 let connectButton = document.getElementById("connect");
 
 // what happens if the cam gets unplugged instead of the gimbal? since they'll be on a hub, probably not an issue
-// disable all control options and set them all to default/zero until we're connected
 
 async function connectSerial(serialPort) {
     let connectString = 'http://127.0.0.1:5000/serial-connect?port=' + serialPort;
@@ -47,7 +46,7 @@ connectButton.addEventListener('click', async () => {
         console.log(result);
         if(result == 1){
             clearInterval(portRefresh);
-            portStatus = setInterval(checkConnection, refreshRate);
+            portStatus = setInterval(checkConnection, 1000);
             resetControls();
             connected = true;
             statusText.style.color = "#23D18B";
@@ -99,7 +98,7 @@ async function disconnectSerial(){
     return result;
 }
 
-async function checkConnection() {
+/*async function checkConnection() {
     await fetch('http://127.0.0.1:5000/connection-status',
         {
             method: "GET",
@@ -125,10 +124,51 @@ async function checkConnection() {
             }
         });
     });
+};*/
+
+function checkConnection() {
+    window.electronAPI.getSerialPorts(false).then(result => {
+        let successFlag = false;
+        const currentlySelected = select.options[select.selectedIndex].value
+        if(result.length == 0){
+
+        }
+        else {
+            for (let i = 0; i < result.length; i++) {
+                let selection = result[i].path;
+                if (selection == currentlySelected) {
+                    successFlag = true;
+                }
+            }
+        }
+        if (successFlag == false) {
+            resetControls();
+            connected = false;
+            statusText.style.color = "#FF2042";
+            statusText.textContent = "Gimbal Disconnected";
+            select.disabled = false;
+            connectButton.textContent = "Connect";
+            connectButton.style.color = "#282C34";
+            connectButton.style.backgroundColor = "#23D18B";
+            clearInterval(portStatus);
+            portRefresh = setInterval(populateSerialPorts, refreshRate);
+        }
+    }).catch(err => {
+        resetControls();
+        connected = false;
+        statusText.style.color = "#FF2042";
+        statusText.textContent = "Gimbal Disconnected";
+        select.disabled = false;
+        connectButton.textContent = "Connect";
+        connectButton.style.color = "#282C34";
+        connectButton.style.backgroundColor = "#23D18B";
+        clearInterval(portStatus);
+        portRefresh = setInterval(populateSerialPorts, refreshRate);
+    });
 };
 
 function populateSerialPorts() {
-    window.electronAPI.getSerialPorts().then(result => {
+    window.electronAPI.getSerialPorts(true).then(result => {
         const currentlySelected = select.options[select.selectedIndex].value
         if(result.length == 0){
             for (let item in select.options) {
@@ -227,7 +267,7 @@ function stopTracking() {
 
 // Start the webcam when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    startWebcam();
+    //startWebcam();
     const trackingToggle = document.getElementById('trackingToggle');
 
 // Add an event listener for the 'change' event

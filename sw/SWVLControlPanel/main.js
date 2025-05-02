@@ -2,16 +2,22 @@ const { app, BrowserWindow } = require('electron')
 const { spawn } = require('child_process');
 const path = require('path');
 const executablePath = path.resolve(__dirname, 'main');
-const child = spawn(executablePath);
+const { exec } = require('child_process');
+const os = require('os');
+//execCommand('. ../SWVL_venv/bin/activate && python3 python/main.py');
+//execCommand('.', ['../SWVL_venv/bin/activate']);
+execCommand('../SWVL_venv/bin/python3', ['python/main.py']);
+//const child = spawn(executablePath); // UNCOMMENT THIS TO SPAWN THE PYTHON PROCESS AGAIN
 const { ipcMain } = require('electron');
 
 
-const { SerialPort } = require('serialport')
+const { SerialPort } = require('serialport');
+const { kill } = require('process');
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
-        height: 900,
+        height: 650,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'), // Specify the preload script
             contextIsolation: true, // Keep context isolation enabled
@@ -41,11 +47,13 @@ ipcMain.handle('get-serials', async (event, arg1, arg2) => {
         }
         //console.log('ports', ports);
         for(let i = 0; i < ports.length; i++){
-          if(ports[i].manufacturer != undefined){
+          if(ports[i].manufacturer != null){
               validPorts.push(ports[i]);
           }
         }
-        console.log('validPorts', validPorts);  
+        if(arg1 == true){
+            console.log('validPorts', validPorts);
+        }
         if (ports.length === 0) {
           console.log('No ports discovered');
         }
@@ -68,14 +76,74 @@ app.on('window-all-closed', (event) => {
 
     })
     setTimeout(function(){
-        child.kill();
+        //child.kill(); // UNCOMMENT THIS TO KILL THE PYTHON PROCESS
+        killProcessByName('python3').then(() => {
+            console.log('python3 process killed successfully');
+        }
+        ).catch((error) => {
+            console.error('Error killing python3 process:', error);
+        });
+        killProcessByName('pt_main_thread').then(() => {
+            console.log('pt_main_thread process killed successfully');
+        }
+        ).catch((error) => {
+            console.error('Error killing pt_main_thread process:', error);
+        });
     },1000);
     setTimeout(function(){
         if (process.platform !== 'darwin') app.quit()
     },1000);
 })
 
-child.stdout.on('data', (data) => {
+
+function killProcessByName(processName) {
+  return new Promise((resolve, reject) => {
+    const platform = os.platform();
+
+    let command;
+
+    if (platform === 'win32') {
+      command = `taskkill /IM ${processName} /F`;
+    } else if (platform === 'linux' || platform === 'darwin') {
+      command = `pkill -f ${processName}`;
+    } else {
+      return reject(new Error(`Unsupported platform: ${platform}`));
+    }
+
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        return reject(new Error(`Failed to kill process: ${stderr || error.message}`));
+      }
+      return resolve();
+    });
+  });
+}
+
+/*function execCommand(command) {
+    const child = exec(command);
+  
+    child.stdout.pipe(process.stdout);
+    child.stderr.pipe(process.stderr);
+  
+    child.on('exit', (code, signal) => {
+      console.log(`Command exited with code ${code} and signal ${signal}`);
+    });
+  }*/
+
+function execCommand(command, args = []) {
+    const child = spawn(command, args, { stdio: 'inherit' });
+    
+    child.on('error', (err) => {
+        console.error(`Failed to start command: ${err}`);
+    });
+    
+    child.on('exit', (code, signal) => {
+        console.log(`Command exited with code ${code} and signal ${signal}`);
+    });
+    }
+
+
+/*child.stdout.on('data', (data) => {   // UNCOMMENT THIS TO SEE THE OUTPUT OF THE PYTHON PROCESS
     console.log(data.toString("utf-8"));
 });
 
@@ -85,4 +153,4 @@ child.stderr.on('data', (data) => {
 
 child.on('error', (error) => {
     console.log(error.toString("utf-8"));
-});
+});*/

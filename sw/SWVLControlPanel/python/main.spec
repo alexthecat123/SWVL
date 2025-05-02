@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('haarcascade_frontalface_default.xml', 'files')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

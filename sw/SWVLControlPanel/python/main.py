@@ -1,10 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
 import threading
-import time
-import cv2
-import serial
-import sys
 import tracking
 import queue
 

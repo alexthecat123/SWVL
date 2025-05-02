@@ -4,12 +4,13 @@ from nmsupr import non_max_supp
 from model import FaceDetector
 import torch
 from torchvision import transforms
+import time
 
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(2)
 
-PATH_TO_MODEL="<PATH_TO_PTH_FILE>"
+PATH_TO_MODEL="/home/alexthecat123/Downloads/SWVL/sw/SWVLControlPanel/python/mobileNetV3_backbone_test.pth"
 
-device = "mps"
+device = torch.device('cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu')
 
 model = FaceDetector()
 model.load_state_dict(torch.load(PATH_TO_MODEL, weights_only=True, map_location=torch.device('cpu')))
@@ -23,6 +24,7 @@ transform = transforms.Compose([
     ])
 
 while True:
+    startTime = time.time()*1000
     ret, frame = cam.read()
     height, width = frame.shape[:2]
 
@@ -40,6 +42,9 @@ while True:
         x, y, w, h = x1*width, y1*height, x2*width, y2*height
 
         cv2.rectangle(frame, (int(x), int(y)), (int(w) , int(h)), (0, 0, 255), 5)
+
+    deltaT = time.time()*1000 - startTime
+    print(f"FPS: {1000/deltaT:.2f}")
 
     cv2.imshow('Webcam', frame)
     if cv2.waitKey(1) == ord('q'):

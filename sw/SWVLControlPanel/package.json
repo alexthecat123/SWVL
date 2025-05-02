@@ -4,11 +4,11 @@
   "description": "The control panel for the SWVL AI-enabled camera gimbal.",
   "main": "main.js",
   "scripts": {
-    "start": "cd python && npm run build-pyinstaller && cd .. && npm run copy-files && electron .",
+    "start": "electron .",
     "start_nopy": "electron .",
     "build-pyinstaller": "cross-env IS_WINDOWS=true npm run pyinstaller-windows || npm run pyinstaller-mac-linux",
-    "pyinstaller-windows": "cd python && pyinstaller main.py --onefile --add-data=haarcascade_frontalface_default.xml;files",
-    "pyinstaller-mac-linux": "cd python && pyinstaller main.py --onefile --add-data='haarcascade_frontalface_default.xml;files'",
+    "pyinstaller-windows": "cd python && pyinstaller main.py --onefile ",
+    "pyinstaller-mac-linux": "cd python && pyinstaller main.py --onefile '",
     "copy-files": "cross-env IS_WINDOWS=true npm run copy-windows || npm run copy-mac-linux",
     "copy-windows": "if exist ./python/dist/main copy ./python/dist/main ./main",
     "copy-mac-linux": "cp ./python/dist/main ./main"
